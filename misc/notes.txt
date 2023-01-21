@@ -1,0 +1,68 @@
+- [ ] make end page better; include duration of ended event
+- [x] on today page (and maybe all), write ongoing task with ...
+check that ongoing tasks contribute duration in view all page
+- [x] time.sleep on Invalid command for view by type
+- [x] add better spacing to chart
+- [x] add change task option to view by task page
+- [x] create marker on first to be less than rather than gt next row
+- [ ] check end time for add task; difference between past & future end time
+- [ ] check 24 hr conversion for add task on start and end times
+- [x] for chart, if there is no duration, up to the present day add 0 to that date
+- [x] show current day on x-axis for chart with formatting
+- [x] chart error with ongoing task
+make refresh screen on chart page smoother
+add options page to main menu; from which you can adjust chart w and h
+on main menu show any ongoing tasks with current duration at the top
+- [x] add duration to chart for today's date plus the duration of an ongoing task
+handle events where ongoing task carries over into the next day; split between dates with the same task information
+option to shift start and end date of chart
+sort task names in view all page
+- [x] add duration to task if end time is specified in add task page
+in edit page, option to resume a task if it was ended
+for chart, if max duration is 0, eg a newly created and ongoing task within time 0, make max_duration of y-axis 0:01.
+for view today page, add a timeline from some time to the end, which is adjustable, and also show the duration of tasks for the whole day
+make scroll feature for changing date range in by type chart
+enforce start time is before end time in add and edit task pages
+add duration to task in last page
+allow for back command on first page of by type; format to same location as location with chart
+- [ ] fix bug with '...' in edit task
+- [ ] create page with list of all task names
+
+VIM NOTES:
+
+vim moving keys: h (left) j (down) k (up) l (right)
+CTRL-0 to jump back, e.g. go back to directory in vim
+split to create new window; CTRL-W <moving key> to change window; close
+args <file1> <file2> to open multiple files; wnext or wprevious for writing
+
+forward one word (w), backward one word (b); specify number, e.g. 4w
+forward to end of word (e), backward to end of word (ge)
+
+f command searches forward in a line for a character, e.g. fx for x
+F searches to the left; you can specify a count for f and F
+t and T work like f and F except that it stops one character short
+repeat with ; and repeat in the other direction with ,
+
+$ goes to end of line; ^ goes to first character in line, 0 goes to start of line
+% moves to the matching parenthesis in a pair, either open or close parenthesis; % also works for [] and {}
+
+'9999k' goes to the top of the file; a number followed by j or k goes down or up that number of lines
+
+G can follow a number to go to that line; e.g. 4G goes to line 4; G by itself goes to the end of the file
+gg goes to the start of the file; so does 1G
+
+move through a line with a number and %, e.g. 25% goes near the beginning while 75% goes near the end
+
+H goes to Home (top of page), M goes to middle (of page), and L goes to Last (bottom of page, not file)
+
+CTRL-U scrolls up  half a screen
+CTRL-D scrolls down half a screen
+CTRL-B scrolls up a whole screen
+CTRL-F scrolls down a whole screen
+
+zz moves screen to show context of cursor in the middle
+xt does the same at the top; zb also but at the bottom
+
+yy copies; specify number for copying multiple lines
+dd cuts; similarly, specify number for multiple lines
+p pastes

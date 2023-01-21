@@ -1,0 +1,39 @@
+import os
+from ast import literal_eval
+PATH = 'Users/matthewwear/Desktop/'
+class Books:
+	def __init__(self):
+		return
+	def readBooks(self):
+		files = os.system(PATH+'/d_library/library')
+		print(files)
+	with open('data/books.txt', 'r') as data:
+			self.books = literal_eval(data)
+		return
+	def writeBooks(self):
+		books = self.booksToDictionary()
+		with open('data/books.txt', 'w') as data:
+			data.write(books)
+		return
+	def booksToDictionary(self):
+		d = {}
+		for i in range(len(self.books)):
+			book = self.books[i]
+			d['author'] = book.author
+			d['title'] = book.title
+			d['publisher'] = book.publisher
+			d['date'] = book.date
+		return d
+	def booksFromDictionary(self, d):
+		self.books = []
+		for i in range(len(d)):
+			book = d[i]
+			author = book['author']
+			title = book['title']
+			publisher = book['publisher']
+			date = book['date']
+			book = Book(author, title, publisher, date)
+			self.books.append(book)
+		return
+	
+
