@@ -5,10 +5,9 @@ import sys
 import os
 import time
 import math
-dl_path = '/Users/matthewwear/Desktop/d_library'
+dl_path = './library'
 sys.path.insert(0, dl_path)
-#import cli_dl
-#import book
+
 class Editor():
 	def __init__(self, table):
 		self.t = table
@@ -178,7 +177,7 @@ class Editor():
 				#	page_end = input('End page:\n')
 				#	task.desc[-3:] = page_end
 			task = self.t.endTask()
-				#path = '/Users/matthewwear/Desktop/d_library/'
+				#path = './library/'
 				#dl = cli_dl.CLI(path)
 				#dl.end(write=True, out=False, time_end=book.Book.strTime())
 			duration = Table.timeDifference(task.start, task.end)
@@ -256,6 +255,7 @@ class Editor():
 				#os.system('clear')
 				print('\nTask edited.\n')
 			time.sleep(4); self.editTask(date_page=date_page)
+
 	def taskFields(self, header, cmd_name, cmd_name2=None, task=None):
 		os.system('clear')
 		if not task:

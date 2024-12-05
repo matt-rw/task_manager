@@ -4,14 +4,19 @@ import time
 import ast
 import copy
 
+DATA_FILE = './data/file.txt'
+OUT_FILE = './data/out.txt'
+
 class Table:
 	def __init__(self):
 		self.table = {}
 		self.state = 0
+
 	def addNewDay(self, task):
 		task = '' + task
 		self.table[Table.getToday()] = {task : [('Duration: 0:00', 'Entries: 0')]}
 		return self.getTaskToday(task)
+
 	def addTask(self, task, date):
 		row = 0
 		try:
@@ -59,6 +64,7 @@ class Table:
 		if task.end != 0:
 			duration = self.entryDuration(row[-1])
 			self.addDuration(row, duration)
+
 	def endTask(self, name=None):
 		if name == None:
 			# search for ongoing task today
@@ -75,6 +81,7 @@ class Table:
 		row[-1] = (start, end, desc)
 		self.addDuration(row, self.entryDuration(row[-1]))
 		return Task(name, start, end, desc)
+
 	def editTask(self, date, task_old, task_new):
 		tasks = self.getTasks(date)
 		duration_prv = tasks[task_old.name][0][0][10:]
@@ -175,6 +182,7 @@ class Table:
 		# add new row as task row
 		tasks[task_new.name] = new_row
 		return 1
+
 	def deleteTask(self, date, task_old):
 		tasks = self.getTasks(date)
 		duration_prv = tasks[task_old.name][0][0][10:]
@@ -203,14 +211,17 @@ class Table:
 			entries_temp = tasks[task_old.name][0][1][:9]+entries_temp
 			tasks[task_old.name][0] = (duration_temp, entries_temp)	
 		return 1
+
 	def entryDuration(self, entry):
 		return Table.timeDifference(entry[0], entry[1])
+
 	def addDuration(self, row, entry_duration):
 		d = (row[0][0])[10:]
 		new_d = Table.timeSummation(d, entry_duration)
 		row[0] = ('Duration: ' + new_d, row[0][1])
-	""" If entry is active, state = 0. Otherwise, state = 1 """
+
 	def getState(self, name=None):
+	""" If entry is active, state = 0. Otherwise, state = 1 """
 		try:
 			row = 0
 			if name is None:
@@ -228,20 +239,26 @@ class Table:
 		except:
 			self.state = 1
 		return self.state	
+
 	def write(self):
-		with open('/Users/matthewwear/Desktop/t_manager/data/file.txt','w') as data:
+		with open(DATA_FILE,'w') as data:
 			data.write(str(self.table))
+
 	def read(self):
-		with open('/Users/matthewwear/Desktop/t_manager/data/file.txt','r') as data:
+		with open(DATA_FILE,'r') as data:
 			self.table = ast.literal_eval(data.read())
+
 	def delDate(self, date=None):
 		if date == None:
 			date = Table.getToday()
 		self.table.pop(date)
+
 	def delLastEntry(self):
 		pass
+
 	def delTask(self, date, task):
 		pass
+
 	def getAllBookEvents(self, book):
 		book_events = {}
 		for date in self.table:
@@ -546,7 +563,7 @@ class Table:
 		return s
 	def formatOut(self):
 		out = self.__repr__()
-		with open('/Users/matthewwear/Desktop/t_manager/data/out.txt','w') as data:
+		with open(OUT_FILE,'w') as data:
 			data.write(out)
 	def __repr__(self):
 		s = '\n\n'

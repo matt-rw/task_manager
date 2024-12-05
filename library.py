@@ -5,19 +5,24 @@ from ast import literal_eval
 from datetime import datetime
 import editor
 from table import Table
-PATH = '/Users/matthewwear/Desktop/'
+
+PATH = '.'
+
 class Books:
 	def __init__(self):
 		self.books = self.readBooks()
+
 	def readBooks(self):
-		files = os.popen(f'ls {PATH+"d_library/library"}').read()
+		files = os.popen(f'ls {PATH}/library').read()
 		files = files.rsplit('\n')[:-1]
 		return files
+
 	def writeBooks(self):
 		books = self.booksToDictionary()
 		with open('data/books.txt', 'w') as data:
 			data.write(books)
 		return
+
 	def bookList(self, page=0, length=7):
 		while True:
 			tcols = int(os.popen('tput cols').read())
@@ -74,6 +79,7 @@ class Books:
 				self.c(); self.o(menu)
 				self.o('Invalid command.\n')
 				self.s(2)
+    
 	def viewBook(book, args:list):
 		# args
 		book_events = args[0]
@@ -98,6 +104,7 @@ class Books:
 			dates.append(date)
 		page = 0
 		page_dates = Books.dateMenu(dates, page)
+
 	def dateMenu(dates, page=0):
 		length = 5
 		header = ''
@@ -108,6 +115,7 @@ class Books:
 		for i in page_range:
 			s_list+= [f' {i+1} | {page_dates[i]}']
 		return s_list
+
 	def computeBookStats(events, pages, words_per_page):
 		hours_today = '0:00'
 		hours_this_week = '0:00'
@@ -220,21 +228,27 @@ class Books:
 		# format output
 		stats = [hours_today, hours_this_week, hours_last_week, hours_this_month, hours_total, days_read, days_since_start, date_started, date_finished, pages_read, pages_today, words_per_min_avg, words_per_min_today, mins_per_page_avg, mins_per_page_today]
 		return stats
+
 	def c(self):
 		os.system('clear')
+
 	def o(self, s):
 		sys.stdout.write(s)
 		sys.stdout.flush()
+
 	def i(self):
 		sys.stdout.flush()
 		return sys.stdin.readline()[:-1]
+
 	def s(self, sec):
 		sleep(sec)
+
 	def strDate(date:dict=None):
 		if date is None:
 			d = Book.dictDate()
 		else: d = date
 		return f'{d["weekday"]} {d["month"]}/{d["day"]}/{d["year"]}'
+
 	def dictDate(date:str=None):
 		weekdays = [
 			'Mon', 'Tue', 'Wed', 'Thu', 
@@ -257,6 +271,8 @@ class Books:
 				weekday = datetime.weekday(d)
 				weekday = weekdays[weekday]
 		return {'weekday':weekday, 'month':d.month, 'day':d.day, 'year':d.year}	
+
+
 if __name__ == '__main__':
 	books = Books()
 	books.bookList()
